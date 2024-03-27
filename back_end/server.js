@@ -9,6 +9,9 @@ const cors = require('cors');
 const authRoute = require('./routes/authRoute');
 const postRoute = require('./routes/postRoute');
 
+// import error Handler
+const {errorHandler} = require('./middleware/errorHandler');
+
 const app = express();
 
 //Cors cho phép client nói chuyện với server
@@ -20,6 +23,13 @@ app.use(express.json());
 // Mount the route kết nối route với server
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/posts', postRoute);
+app.all('*', (req, res, next) => {
+  const err = new Error('The route can not be found');
+  err.statusCode = 404;
+  next(err);
+})
+
+app.use(errorHandler);
 const port = process.env.APP_PORT;
 
 app.listen(port, () => {

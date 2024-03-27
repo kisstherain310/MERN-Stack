@@ -4,10 +4,11 @@ const postSchema = new mongoose.Schema({
   content: {
     type: String,
     require: [true, 'Post must have content'],
+    minlength: [1, 'Post must have content'],
     trim: true
   },
   author: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
 },

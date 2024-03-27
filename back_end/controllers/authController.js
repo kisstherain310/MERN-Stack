@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
   try{
     const user = await User.create(req.body);
     const token = jwt.sign({userId: user._id}, process.env.APP_SECRET);
@@ -11,15 +11,18 @@ exports.register = async (req, res) => {
       data: {token, userName: user.name}
     })
   } catch(error){
-    res.json(error);
+    next(error);
   }
 }
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({email: req.body.email});
     if(!user){
       // email not correct
+      const err = new Error("Email is not correct");
+      err.statusCode = 400;
+      return next(err);
     } 
     if(bcrypt.compareSync(req.body.password, user.password)){
       const token = jwt.sign({userId: user._id}, process.env.APP_SECRET);
@@ -31,6 +34,9 @@ exports.login = async (req, res) => {
       })
     } else {
       // password not correct
+      const err = new Error("Password is not correct");
+      err.statusCode = 400;
+      return next(err);
     }
 
   } catch (error) {
