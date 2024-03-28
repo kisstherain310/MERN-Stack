@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter </title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="form.css">
+  <link rel="stylesheet" href="post.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- header -->
+    <header class="header">
+      <h1 class="logo"><a href="#">twitter</a></h1>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Register</a></li>
+          <li><span href="#" class="user-name">Hello, Tien Tran</span></li>
+          <li><a href="#">Sign out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- form -->
+    <section class="form-section">
+      <form class="form">
+        <textarea type="text" name="content" id="content" class="content" placeholder="Whats happening?"></textarea>
+        <button class="btn" type="submit">Tweet</button>
+      </form>
+    </section>
+    <!-- post -->
+    <section class="post-section">
+      <div class="post-list">
+        <div class="post-item">
+          <p class="post-content">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam exercitationem quis fugit, reprehenderit nisi culpa nulla odio, voluptas quisquam unde laborum. Cum dolore iste voluptates, fugiat quisquam quas dolorum tempore.
+          </p>
+          <div class="post-footer">
+            <div class="post-infors">
+              <span>by TienTran</span>
+              <span>Date: 28/03/2023</span>
+            </div>
+            <div class="post-edit-delete">
+              <span>Edit</span>
+              <span>Delete</span>
+              <span class="delete-question">Are you sure?</span>
+              <span>Yes</span>
+              <span>No</span>
+            </div>
+          </div>
+          <div class="post-edit-form">
+            <form class="edit-form">
+              <textarea type="text" name="content" id="content" class="content" placeholder="Whats happening?">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam maxime consequatur inventore recusandae sequi doloribus voluptates aspernatur, eaque excepturi suscipit? Itaque explicabo quidem quam rem ad neque suscipit. Ducimus, natus?
+              </textarea>
+              <div class="btn-container">
+                <button class="btn" type="button">Update</button>
+                <button class="btn" type="button">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- login -->
+    <section class="auth-container">
+      <form class="auth-form">
+        <h2>Enter your account</h2>
+        <div class="error-message">Error: Your password is not correct</div>
+        <input type="email" name="email" id="" required placeholder="Email">
+        <input type="password" name="password" required placeholder="Password">
+        <button class="btn" type="submit">Login</button>
+      </form>
+    </section>
+    <!-- register -->
+    <section class="auth-container">
+      <form class="auth-form">
+        <h2>Register new account</h2>
+        <div class="error-message">Error: Your password is not correct</div>
+        <input type="name" name="name" id="" required placeholder="Name">
+        <input type="email" name="email" id="" required placeholder="Email">
+        <input type="password" name="password" required placeholder="Password">
+        <button class="btn" type="submit">Login</button>
+      </form>
+    </section>
+  </div>
+</body>
+
+</html>
