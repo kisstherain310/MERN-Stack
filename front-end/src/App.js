@@ -1,18 +1,23 @@
-import Form from "./components/Form";
 import Header from "./components/Header";
 import Login from "./components/Login";
-import PostList from "./components/PostList";
+import Main from "./components/Main";
+import NotFoundPage from "./components/NotFoundPage";
 import Register from "./components/Register";
+import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom'; 
 
 function App() {
   return (
-    <div className="container">
-      <Header/>
-      <Form />
-      <PostList />
-      <Login />
-      <Register />
-    </div>
+    <Router>
+      <div className="container">
+        <Header />
+        <Routes>
+          <Route exact path="/login" element = {<Login /> }/>
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/" element={ <Main />} />
+          <Route exact path="*" element={ <Navigate to ="/" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
