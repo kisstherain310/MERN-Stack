@@ -28,7 +28,7 @@ export default function Register(){
       const {token, userName} = response.data.data;
       localStorage.setItem("token", token);
       dispatch({type: "CURRENT_USER", payload: {userName}});
-      navigateHomePage.push("/");
+      navigateHomePage("/");
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
@@ -56,7 +56,7 @@ export default function Register(){
         value={userInput.password}
         onChange={onChangeHandle}
         />
-        <button className="btn" type="submit">Login</button>
+        <button className="btn" type="submit">Register</button>
       </form>
     </section>
   )

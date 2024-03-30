@@ -23,8 +23,9 @@ export default function Login(){
       const {token, userName} = response.data.data;
       localStorage.setItem("token", token);
       dispatch({type: "CURRENT_USER", payload: {userName}});
-      navigateHomePage.push("/");
+      navigateHomePage("/");
     } catch (error) {
+      console.log(error);
       setErrorMessage(error.response.data.message);
     }
   }
