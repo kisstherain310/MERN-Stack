@@ -37,7 +37,7 @@ export default function Form(){
         <textarea type="text" name="content" id="content" className="content" placeholder="Whats happening?"
         value={postInput.content}
         onChange={(e) => setPostInput({content: e.target.value})}
-        ></textarea>
+        />
         <button className="btn" type="submit">Tweet</button>
       </form>
     </section>

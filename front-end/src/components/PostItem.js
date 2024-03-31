@@ -6,7 +6,7 @@ import AppContext from './AppContext';
 export default function PostItem({post}){
   let date = post.createdAt;
   const {dispatch} = useContext(AppContext);
-  const [contentEditPost, setContentEditPost] = useState(post.content);
+  const [editPost, setEditPost] = useState(post);
   const [editForm, setEditForm] = useState(false);
   const [deleteComfirm, setDeleteConfirm] = useState(false);
 
@@ -16,14 +16,13 @@ export default function PostItem({post}){
       const options = {
         method: 'put',
         url: `/api/v1/posts/${post._id}`,
-        data: {content: contentEditPost},
+        data: editPost,
         headers: {
           Authorization: `Bearer ${token}`
         } 
       }
       await axios(options);
-      dispatch({type: "UPDATE_ONE_POST", payload: post});
-      post.content = contentEditPost
+      dispatch({type: "UPDATE_ONE_POST", payload: editPost});
       setEditForm(false);
     } catch (error) {
       console.log(error);
@@ -41,7 +40,7 @@ export default function PostItem({post}){
         } 
       }
       await axios(options);
-      dispatch({type: "DELETE_ONE_POST", payload: {_id: post.id}});
+      dispatch({type: "DELETE_ONE_POST", payload: post});
     } catch (error) {
       console.log(error);
     }
@@ -81,10 +80,9 @@ export default function PostItem({post}){
           <div className="post-edit-form">
             <form className="edit-form">
               <textarea type="text" name="content" id="content" className="content" placeholder="Whats happening?"
-              onChange={(e) => setContentEditPost(e.target.value)}
-              >
-                {contentEditPost}
-              </textarea>
+              onChange={(e) => setEditPost({...editPost, content: e.target.value})}
+              value={editPost.content}
+              />
               <div className="btn-container">
                 <button className="btn" type="button" onClick={onUpdate}>Update</button>
                 <button className="btn" type="button" onClick={() => setEditForm(false)}>Cancel</button>
