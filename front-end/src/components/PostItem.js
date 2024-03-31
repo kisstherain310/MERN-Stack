@@ -1,10 +1,51 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../css/Header.css'
+import axios from 'axios';
+import AppContext from './AppContext';
 
 export default function PostItem({post}){
   let date = post.createdAt;
+  const {dispatch} = useContext(AppContext);
+  const [contentEditPost, setContentEditPost] = useState(post.content);
   const [editForm, setEditForm] = useState(false);
   const [deleteComfirm, setDeleteConfirm] = useState(false);
+
+  const onUpdate = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const options = {
+        method: 'put',
+        url: `/api/v1/posts/${post._id}`,
+        data: {content: contentEditPost},
+        headers: {
+          Authorization: `Bearer ${token}`
+        } 
+      }
+      await axios(options);
+      dispatch({type: "UPDATE_ONE_POST", payload: post});
+      post.content = contentEditPost
+      setEditForm(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const options = {
+        method: 'delete',
+        url: `/api/v1/posts/${post._id}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        } 
+      }
+      await axios(options);
+      dispatch({type: "DELETE_ONE_POST", payload: {_id: post.id}});
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="post-item">
       <p className="post-content">
@@ -27,7 +68,7 @@ export default function PostItem({post}){
             {deleteComfirm && (
               <>
                 <span className="delete-question">Are you sure?</span>
-                <span>Yes</span>
+                <span onClick={onDelete}>Yes</span>
                 <span onClick={() => setDeleteConfirm(false)}>No</span>
               </>
             )}
@@ -39,11 +80,13 @@ export default function PostItem({post}){
         <>
           <div className="post-edit-form">
             <form className="edit-form">
-              <textarea type="text" name="content" id="content" className="content" placeholder="Whats happening?">
-                {post.content}
+              <textarea type="text" name="content" id="content" className="content" placeholder="Whats happening?"
+              onChange={(e) => setContentEditPost(e.target.value)}
+              >
+                {contentEditPost}
               </textarea>
               <div className="btn-container">
-                <button className="btn" type="button">Update</button>
+                <button className="btn" type="button" onClick={onUpdate}>Update</button>
                 <button className="btn" type="button" onClick={() => setEditForm(false)}>Cancel</button>
               </div>
             </form>

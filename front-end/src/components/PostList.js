@@ -3,6 +3,7 @@ import '../css/Post.css'
 import PostItem from './PostItem';
 import axios from "axios";
 import AppContext from './AppContext';
+
 export default function PostList(){
   const {state, dispatch} = useContext(AppContext);
   const {posts, user} = state;
@@ -18,13 +19,13 @@ export default function PostList(){
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [dispatch]);
   useEffect(()=> {
     getAllPosts()
   }, [getAllPosts])
   const newPosts = posts.map((post) => {
     if(user){
-      return (post.author.name == user.userName) ? {...post, isEditable: true} : {...post, isEditable: false};
+      return (post.author.name === user.userName) ? {...post, isEditable: true} : {...post, isEditable: false};
     } else return {...post, isEditable: false}
   });
   return (
